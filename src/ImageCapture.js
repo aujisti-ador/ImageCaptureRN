@@ -49,11 +49,11 @@ export default class ImageCapture extends React.Component {
 
   takePicture = async function() {
     const options = { 
-      quality: 0.1,
-      base64: true, 
-      doNotSave: true, 
-      pauseAfterCapture: false,
-      fixOrientation: true
+      quality: 0.1, //image quality
+      base64: true, //base64 format enabled
+      doNotSave: true, //preventing image saving in device
+      pauseAfterCapture: false, //pausing camera after capturing
+      fixOrientation: true //sticking picture in portrait mode
     };
           const data = await this.camera.takePictureAsync(options);
           // let saveResult = CameraRoll.saveToCameraRoll(data.uri);
