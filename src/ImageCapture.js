@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Slider, CameraRoll, PermissionsAndroid } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Slider, CameraRoll } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { RNCamera } from 'react-native-camera';
 
@@ -48,11 +48,20 @@ export default class ImageCapture extends React.Component {
   }
 
   takePicture = async function() {
-    const options = { quality: 0.1, base64: true };
+    const options = { 
+      quality: 0.1,
+      base64: true, 
+      doNotSave: true, 
+      pauseAfterCapture: false,
+      fixOrientation: true
+    };
           const data = await this.camera.takePictureAsync(options);
-          let saveResult = CameraRoll.saveToCameraRoll(data.uri);
-          console.warn("takePicture ", saveResult);
-          console.warn("picture url ", data.uri);
+          // let saveResult = CameraRoll.saveToCameraRoll(data.uri);
+          // console.warn("takePicture ", saveResult);
+          console.log("uri ", data.uri);
+          console.log("base64  ", data.base64);
+          console.log("width ", data.width);
+          console.log("height ", data.height);
   };
 
   renderCamera() {
