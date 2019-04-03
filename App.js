@@ -13,7 +13,7 @@ import ImageCapture from './src/ImageCapture';
 export default class App extends Component{
   render() {
     return (
-      <ImageCapture />
+      <ImageCapture /> //component
     );
   }
 }
