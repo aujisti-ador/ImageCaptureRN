@@ -11,15 +11,6 @@ const flashModeOrder = {
   torch: 'off',
 };
 
-const wbOrder = {
-  auto: 'sunny',
-  sunny: 'cloudy',
-  cloudy: 'shadow',
-  shadow: 'fluorescent',
-  fluorescent: 'incandescent',
-  incandescent: 'auto',
-};
-
 export default class ImageCapture extends React.Component {
   state = {
     flash: 'off',
@@ -29,21 +20,9 @@ export default class ImageCapture extends React.Component {
     ratio: '16:9',
   };
 
-  toggleFacing() {
-    this.setState({
-      type: this.state.type === 'back' ? 'front' : 'back',
-    });
-  }
-
   toggleFlash() {
     this.setState({
       flash: flashModeOrder[this.state.flash],
-    });
-  }
-
-  toggleWB() {
-    this.setState({
-      whiteBalance: wbOrder[this.state.whiteBalance],
     });
   }
 
@@ -81,7 +60,7 @@ export default class ImageCapture extends React.Component {
         permissionDialogTitle={'Permission to use camera'}
         permissionDialogMessage={'We need your permission to use your camera phone'}
         onGoogleVisionBarcodesDetected={({ barcodes }) => {
-          console.log(barcodes);
+          console.warn(barcodes);
           // conditional part for barcode
           // if (barcodes) {
           //   this.props.navigation.navigate('ButtonRoute')
@@ -98,14 +77,8 @@ export default class ImageCapture extends React.Component {
             justifyContent: 'space-around',
           }}
         >
-          <TouchableOpacity style={styles.flipButton} onPress={this.toggleFacing.bind(this)}>
-            <Text style={styles.flipText}> FLIP </Text>
-          </TouchableOpacity>
           <TouchableOpacity style={styles.flipButton} onPress={this.toggleFlash.bind(this)}>
             <Text style={styles.flipText}> FLASH: {this.state.flash} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.flipButton} onPress={this.toggleWB.bind(this)}>
-            <Text style={styles.flipText}> WB: {this.state.whiteBalance} </Text>
           </TouchableOpacity>
         </View>
         <View
