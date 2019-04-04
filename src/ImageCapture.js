@@ -28,13 +28,21 @@ export default class ImageCapture extends React.Component {
     });
   }
 
+  closePicture() {
+
+  }
+
+  confirmPicture() {
+
+  }
+
   takePicture = async function() {
     const options = { 
       quality: 0.1, //image quality
       base64: true, //base64 format enabled
       // doNotSave: true, //preventing image saving in device
-      pauseAfterCapture: false, //pausing camera after capturing
-      fixOrientation: true //sticking picture in portrait mode
+      pauseAfterCapture: true, //pausing camera after capturing
+      fixOrientation: true, //sticking picture in portrait mode
     };
           const data = await this.camera.takePictureAsync(options);
           // let saveResult = CameraRoll.saveToCameraRoll(data.uri);
@@ -132,7 +140,30 @@ export default class ImageCapture extends React.Component {
   render() {
     const imageUri = this.state.imageUri;
     if (imageUri) {
-    return <ImageBackground source={imageUri} style={{width: '100%', height: '100%'}}/>;
+    return (
+        <ImageBackground source={imageUri} style={{width: '100%', height: '100%'}}>
+        <View style={{
+            flex: 1,
+            backgroundColor: 'transparent',
+            flexDirection: 'row',
+            alignSelf: 'center',
+          }}>
+        <TouchableOpacity
+            style={[styles.flipButton, styles.picButton, { flex: 0.3, alignSelf: 'flex-end' }]}
+            onPress={this.closePicture.bind(this)}
+          >
+            <Text style={styles.flipText}> Close </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.flipButton, styles.picButton, { flex: 0.3, alignSelf: 'flex-end' }]}
+            onPress={this.confirmPicture.bind(this)}
+          >
+            <Text style={styles.flipText}> Confirm </Text>
+          </TouchableOpacity>
+        </View>
+        </ImageBackground>
+    );
     }
     return <View style={styles.container}>{this.renderCamera()}</View>;
     }
