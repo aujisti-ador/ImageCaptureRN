@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Slider, CameraRoll } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground} from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { RNCamera } from 'react-native-camera';
+
 
 const flashModeOrder = {
   off: 'on',
@@ -18,6 +19,7 @@ export default class ImageCapture extends React.Component {
     type: 'back',
     whiteBalance: 'auto',
     ratio: '16:9',
+    imageUri: null
   };
 
   toggleFlash() {
@@ -30,7 +32,7 @@ export default class ImageCapture extends React.Component {
     const options = { 
       quality: 0.1, //image quality
       base64: true, //base64 format enabled
-      doNotSave: true, //preventing image saving in device
+      // doNotSave: true, //preventing image saving in device
       pauseAfterCapture: false, //pausing camera after capturing
       fixOrientation: true //sticking picture in portrait mode
     };
@@ -41,6 +43,15 @@ export default class ImageCapture extends React.Component {
           console.log("base64  ", data.base64);
           console.log("width ", data.width);
           console.log("height ", data.height);
+
+          this.setState({ imageUri: data });
+
+        //   <View>
+        //     <Image
+        //   style={{width: data.width, height: data.height}}
+        //   source={{uri: data.uri}}
+        // />
+        //   </View>
   };
 
   renderCamera() {
@@ -119,8 +130,12 @@ export default class ImageCapture extends React.Component {
   }
 
   render() {
+    const imageUri = this.state.imageUri;
+    if (imageUri) {
+    return <ImageBackground source={imageUri} style={{width: '100%', height: '100%'}}/>;
+    }
     return <View style={styles.container}>{this.renderCamera()}</View>;
-  }
+    }
 }
 
 const styles = StyleSheet.create({
