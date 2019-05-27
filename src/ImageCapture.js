@@ -78,6 +78,9 @@ export default class ImageCapture extends React.Component {
         ratio={this.state.ratio}
         permissionDialogTitle={'Permission to use camera'}
         permissionDialogMessage={'We need your permission to use your camera phone'}
+        onBarCodeRead={(barcodes) => {
+          console.warn(barcodes.data);
+        }}
         onGoogleVisionBarcodesDetected={({ barcodes }) => {
           console.warn(barcodes);
           // conditional part for barcode
